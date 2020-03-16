@@ -17,15 +17,13 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
+            android:id="@+id/llCompanies"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tv1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
+            android:layout_marginTop="60dp"
+            android:layout_marginBottom="60dp"
+            android:orientation="vertical"
+            android:paddingBottom="60dp" />
     </ScrollView>
 
     <LinearLayout
