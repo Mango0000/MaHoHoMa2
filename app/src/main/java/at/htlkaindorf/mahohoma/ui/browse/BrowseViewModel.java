@@ -1,16 +1,16 @@
-package at.htlkaindorf.mahohoma.ui.slideshow;
+package at.htlkaindorf.mahohoma.ui.browse;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class SlideshowViewModel extends ViewModel {
+public class BrowseViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public SlideshowViewModel() {
+    public BrowseViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is slideshow fragment");
+        mText.setValue("This is browse fragment");
     }
 
     public LiveData<String> getText() {

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.browse.BrowseFragment">
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/serach_bar"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/searchbar"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingStart="10dp"
+        android:paddingEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/scrollView2">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:contentDescription="@string/searchbar"
+            android:foregroundTint="#FFFFFF"
+            android:foregroundTintMode="add"
+            android:src="@drawable/ic_menu_browse"
+            android:tint="#FFFFFF" />
+
+        <EditText
+            android:id="@+id/searchbar"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:autofillHints="@string/searchbar"
+            android:background="#00FFFFFF"
+            android:ems="10"
+            android:foregroundTint="#FFFFFF"
+            android:foregroundTintMode="add"
+            android:hint="@string/searchbar"
+            android:inputType="text"
+            android:paddingLeft="10dp"
+            android:textColor="#FFFFFF"
+            android:textColorHighlight="#8E8E8E"
+            android:textColorHint="#232323"
+            android:textColorLink="#FFFFFF"
+            android:textCursorDrawable="?android:attr/textCursorDrawable" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
