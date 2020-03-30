@@ -17,6 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class SearchCompanies extends AsyncTask<String, String, List<String>> {
+    int i;
     @Override
     protected List<String> doInBackground(String... strings) {
         try{
