@@ -35,6 +35,7 @@
         android:id="@+id/imageView5"
         android:layout_width="70dp"
         android:layout_height="62dp"
+        android:background="#00F44336"
         app:srcCompat="@drawable/icon_user_foreground"
         tools:layout_editor_absoluteX="63dp"
         tools:layout_editor_absoluteY="228dp" />
@@ -45,7 +46,8 @@
         android:layout_height="62dp"
         app:srcCompat="@drawable/icon_lock_foreground"
         tools:layout_editor_absoluteX="63dp"
-        tools:layout_editor_absoluteY="298dp" />
+        tools:layout_editor_absoluteY="298dp"
+        />
 
     <Button
         android:id="@+id/button"
