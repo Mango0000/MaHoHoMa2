@@ -46,7 +46,7 @@ public class StockItem extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.stock_item_fragment, container, false);
         iv = root.findViewById(R.id.ivImage);
-        Picasso.get().load(Image).into(iv);
+        Picasso.get().load(Image).fit().centerInside().into(iv);
         name= root.findViewById(R.id.tvCompanyName);
         name.setText(Name);
         value = root.findViewById(R.id.tvValue);

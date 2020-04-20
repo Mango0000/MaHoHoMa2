@@ -28,12 +28,15 @@ public class CompanyResolver extends AsyncTask<String, String, List<String>> {
             while((line = br.readLine())!=null){
                 result+=line+"\n";
             }
-            JSONObject obj = new JSONObject(result);
-            JSONObject profile = obj.getJSONObject("profile");
             List<String> list = new ArrayList<>();
-            list.add(profile.getString("price"));
-            list.add(profile.getString("changes"));
-            list.add(profile.getString("image"));
+            JSONObject obj = new JSONObject(result);
+            if(obj.has("profile")){
+            JSONObject profile = obj.getJSONObject("profile");
+                list.add(profile.getString("companyName"));
+                list.add(profile.getString("price"));
+                list.add(profile.getString("changes"));
+                list.add(profile.getString("image"));
+            }
             return list;
         }catch(MalformedURLException e){
             e.printStackTrace();
