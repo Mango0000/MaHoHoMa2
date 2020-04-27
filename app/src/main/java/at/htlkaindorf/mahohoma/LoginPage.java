@@ -2,6 +2,9 @@ package at.htlkaindorf.mahohoma;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -9,7 +12,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class LoginPage extends AppCompatActivity {
+import at.htlkaindorf.mahohoma.database.DB_Access;
+
+public class LoginPage extends AppCompatActivity
+{
+    //private DB_Access db_access = DB_Access.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -19,6 +26,7 @@ public class LoginPage extends AppCompatActivity {
         Button enterButton = findViewById(R.id.enterButton);
         TextView username = findViewById(R.id.tvUsername);
         TextView password = findViewById(R.id.tvPassword);
+        Button createAccountButton = findViewById(R.id.createButton);
 
         username.addTextChangedListener(new TextWatcher() {
             @Override
@@ -67,10 +75,19 @@ public class LoginPage extends AppCompatActivity {
                 }
             }
         });
+
+        createAccountButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                onClickCreateAccount();
+            }
+        });
     }
 
-    private void checkTextViews()
+    private void onClickCreateAccount()
     {
-
+        Intent myIntent = new Intent(getApplicationContext(), CreateAccountPage.class);
+        startActivity(myIntent);
     }
 }

@@ -12,7 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".LoginPage"></activity>
+        <activity android:name=".CreateAccountPage"></activity>
+        <activity android:name=".LoginPage" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
