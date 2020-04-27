@@ -77,7 +77,6 @@ public class BrowseFragment extends Fragment {
                     }else{
                         fragmentTransaction.add(R.id.llCompanies,new StockItem(res.get(0), res.get(3), res.get(1),res.get(2)));
                     }
-
                 }
             }
             fragmentTransaction.commit();
