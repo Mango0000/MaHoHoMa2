@@ -2,6 +2,7 @@ package at.htlkaindorf.mahohoma;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 
@@ -18,6 +19,12 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.Buffer;
+import java.util.Properties;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -47,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         getOnBackPressedDispatcher().addCallback(this, callback);
+        readFile();
     }
 
     @Override
@@ -61,5 +69,18 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    public void readFile(){
+        try {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(getAssets().open("test.txt")));
+            String next="";
+            while ((next = reader.readLine()) != null){
+                Log.w("MyActivity", next);
+            }
+            reader.close();
+        }catch(IOException e){
+            Log.w("MyActivity", "error");
+        }
     }
 }

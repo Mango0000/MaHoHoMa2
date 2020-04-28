@@ -73,7 +73,6 @@ public class StockItem extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        Log.w("MyActivity", "onclick");
         stock stock = new stock(Name, Image);
         FragmentManager fragmentManager = getParentFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -81,6 +80,5 @@ public class StockItem extends Fragment implements View.OnClickListener {
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         fragmentTransaction.commit();
-        Log.w("MyActivity", "onclick");
     }
 }
