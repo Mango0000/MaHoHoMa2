@@ -10,6 +10,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.GridLabelRenderer;
+import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.LineGraphSeries;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 
@@ -31,6 +35,7 @@ public class stock extends Fragment{
     private ImageView ivCompany;
     private String mParam1;
     private String mParam2;
+    private GraphView graph;
 
     public stock() {
         // Required empty public constructor
@@ -76,6 +81,20 @@ public class stock extends Fragment{
         name.setText(CompanyName);
         ivCompany = root.findViewById(R.id.IVCompanyImage);
         Picasso.get().load(Image).transform(new RoundedCornersTransformation(40,0)).fit().centerInside().into(ivCompany);
+        graph = root.findViewById(R.id.graph);
+        LineGraphSeries <DataPoint> series = new LineGraphSeries< >(new DataPoint[] {
+                new DataPoint(0, 1),
+                new DataPoint(Integer.valueOf(1), Integer.valueOf(2)),
+                new DataPoint(Integer.valueOf(2), Integer.valueOf(3)),
+                new DataPoint(Integer.valueOf(3), Integer.valueOf(4)),
+                new DataPoint(Integer.valueOf(5), Integer.valueOf(2)),
+                new DataPoint(Integer.valueOf(6), Integer.valueOf(3)),
+                new DataPoint(Integer.valueOf(7), Integer.valueOf(8)),
+        });
+        graph.addSeries(series);
+        graph.getGridLabelRenderer().setHorizontalAxisTitle("Date");
+        graph.getGridLabelRenderer().setVerticalAxisTitle("Sales");
+        graph.getViewport().setScrollable(true);
         return root;
     }
 }

@@ -69,7 +69,6 @@ public class StockItem extends Fragment implements View.OnClickListener {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = ViewModelProviders.of(this).get(StockItemViewModel.class);
-        // TODO: Use the ViewModel
     }
 
     @Override

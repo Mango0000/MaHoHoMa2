@@ -11,7 +11,6 @@
     <string name="menu_browse">Browse</string>
     <string name="searchbar">search</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="price_headline">Value:</string>
     <string name="change_headline">Change:</string>
