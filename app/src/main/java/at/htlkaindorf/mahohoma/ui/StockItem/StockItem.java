@@ -60,9 +60,10 @@ public class StockItem extends Fragment implements View.OnClickListener {
         Picasso.get().load(Image).transform(new RoundedCornersTransformation(40,0)).fit().centerInside().into(iv);
         name= root.findViewById(R.id.tvCompanyName);
         if(Name.length()>40){
-            Name = Name.substring(0,40) +" ...";
+            name.setText(Name.substring(0,40) +" ...");
+        }else{
+            name.setText(Name);
         }
-        name.setText(Name);
         value = root.findViewById(R.id.tvValue);
         value.setText(Value);
         change = root.findViewById(R.id.tvChange);
@@ -87,7 +88,13 @@ public class StockItem extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         stock stock = new stock(Name, Image);
-        FragmentManager fragmentManager = getParentFragmentManager();
+        FragmentManager fragmentManager;
+        if(width == 0){
+            fragmentManager = getParentFragmentManager();
+        }else{
+            fragmentManager = getParentFragment().getParentFragmentManager();
+        }
+
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.nav_host_fragment, stock);
         fragmentTransaction.addToBackStack(null);
