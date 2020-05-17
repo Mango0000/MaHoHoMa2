@@ -62,18 +62,18 @@ public class BrowseFragment extends Fragment {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onStart() {
+        super.onStart();
 
 
         FragmentManager mFragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
         //Most Active
-        fragmentTransaction.add(R.id.llCompanies,new top_types("Most Active"));
+        fragmentTransaction.add(R.id.llCompanies, new top_types("Most Active"));
         //Most Gainer
-        fragmentTransaction.add(R.id.llCompanies,new top_types("Most Gainer"));
+        fragmentTransaction.add(R.id.llCompanies, new top_types("Most Gainer"));
         //Most Loser
-        fragmentTransaction.add(R.id.llCompanies,new top_types("Most Loser"));
+        fragmentTransaction.add(R.id.llCompanies, new top_types("Most Loser"));
         fragmentTransaction.commit();
     }
 
