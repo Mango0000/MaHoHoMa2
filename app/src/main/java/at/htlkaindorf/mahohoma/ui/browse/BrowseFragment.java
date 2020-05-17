@@ -64,8 +64,7 @@ public class BrowseFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-
-
+        ll.removeAllViews();
         FragmentManager mFragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
         //Most Active
