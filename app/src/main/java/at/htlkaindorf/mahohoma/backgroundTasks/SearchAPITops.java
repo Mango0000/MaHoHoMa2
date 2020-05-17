@@ -1,6 +1,7 @@
 package at.htlkaindorf.mahohoma.backgroundTasks;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -13,15 +14,14 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-public class SearchCompanies extends AsyncTask<String, String, List<String>> {
+public class SearchAPITops extends AsyncTask<String, String, List<String>> {
     @Override
     protected List<String> doInBackground(String... strings) {
         try{
             URL url = null;
-            url = new URL("https://financialmodelingprep.com/api/v3/search?query="+strings[0]+"&limit=20");
+            url = new URL(strings[0]);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
             String result = "";
@@ -30,10 +30,12 @@ public class SearchCompanies extends AsyncTask<String, String, List<String>> {
                 result+=line+"\n";
             }
             br.close();
-            JSONArray obj = new JSONArray(result);
+            urlConnection.disconnect();
+            JSONObject obj = new JSONObject(result);
+            JSONArray objarr = obj.getJSONArray(obj.names().get(0).toString());
             List<String> resultset = new ArrayList<>();
-            for (int i = 0; i<obj.length(); i++) {
-                resultset.add(obj.getJSONObject(i).getString("symbol"));
+            for (int i = 0; i<objarr.length(); i++) {
+                resultset.add(objarr.getJSONObject(i).getString("ticker"));
             }
             return resultset;
         }catch(MalformedURLException e){

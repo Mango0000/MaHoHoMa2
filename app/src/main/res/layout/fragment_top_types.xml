@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:background="@drawable/overview_round"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context=".ui.top_types.top_types">
+
+    <TextView
+        android:id="@+id/tvTypeName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp" />
+
+    <HorizontalScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="200dp">
+
+        <LinearLayout
+            android:id="@+id/llStocks"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+        </LinearLayout>
+    </HorizontalScrollView>
+
+</LinearLayout>

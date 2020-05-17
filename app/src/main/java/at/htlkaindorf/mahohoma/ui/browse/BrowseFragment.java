@@ -31,8 +31,10 @@ import java.util.concurrent.ExecutionException;
 import at.htlkaindorf.mahohoma.R;
 import at.htlkaindorf.mahohoma.backgroundTasks.APIConnection;
 import at.htlkaindorf.mahohoma.backgroundTasks.CompanyResolver;
+import at.htlkaindorf.mahohoma.backgroundTasks.SearchAPITops;
 import at.htlkaindorf.mahohoma.backgroundTasks.SearchCompanies;
 import at.htlkaindorf.mahohoma.ui.StockItem.StockItem;
+import at.htlkaindorf.mahohoma.ui.top_types.top_types;
 
 public class BrowseFragment extends Fragment {
     EditText etsearch;
@@ -59,6 +61,22 @@ public class BrowseFragment extends Fragment {
         return root;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+
+        FragmentManager mFragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+        //Most Active
+        fragmentTransaction.add(R.id.llCompanies,new top_types("Most Active"));
+        //Most Gainer
+        fragmentTransaction.add(R.id.llCompanies,new top_types("Most Gainer"));
+        //Most Loser
+        fragmentTransaction.add(R.id.llCompanies,new top_types("Most Loser"));
+        fragmentTransaction.commit();
+    }
+
     private void onSearch() {
         try {
             SearchCompanies search = new SearchCompanies();
@@ -66,6 +84,11 @@ public class BrowseFragment extends Fragment {
             FragmentManager mFragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
             ll.removeAllViews();
+            if(output.isEmpty()){
+                TextView empty = new TextView(getContext());
+                empty.setText("No Results");
+                ll.addView(empty);
+            }
             for (String string:output) {
                 //Log.e(TAG, string);
                 List<String> res = new CompanyResolver().execute(string).get();
@@ -73,9 +96,9 @@ public class BrowseFragment extends Fragment {
                     //fragmentTransaction.add(R.id.llCompanies,new StockItem(string, null, null,null));
                 }else{
                     if(res.get(0).equals("")||res.get(0).equals("null")){
-                        fragmentTransaction.add(R.id.llCompanies,new StockItem(string, res.get(3), res.get(1),res.get(2)));
+                        fragmentTransaction.add(R.id.llCompanies,new StockItem(string, res.get(3), res.get(1),res.get(2), 0));
                     }else{
-                        fragmentTransaction.add(R.id.llCompanies,new StockItem(res.get(0), res.get(3), res.get(1),res.get(2)));
+                        fragmentTransaction.add(R.id.llCompanies,new StockItem(res.get(0), res.get(3), res.get(1),res.get(2), 0));
                     }
                 }
             }

@@ -19,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -35,19 +36,21 @@ public class StockItem extends Fragment implements View.OnClickListener {
     TextView name, value, change;
 
     String Name, Image, Value, Change;
+    int width;
 
-    public StockItem(String name, String image, String value, String change) {
+    public StockItem(String name, String image, String value, String change, int width) {
         Name = name;
         Image = image;
         Value = value;
         Change = change;
+        this.width = width;
     }
 
     private StockItemViewModel mViewModel;
 
-    public static StockItem newInstance() {
+    /*public static StockItem newInstance() {
         return new StockItem(null, null, null, null);
-    }
+    }*/
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -56,12 +59,22 @@ public class StockItem extends Fragment implements View.OnClickListener {
         iv = root.findViewById(R.id.ivImage);
         Picasso.get().load(Image).transform(new RoundedCornersTransformation(40,0)).fit().centerInside().into(iv);
         name= root.findViewById(R.id.tvCompanyName);
+        if(Name.length()>40){
+            Name = Name.substring(0,40) +" ...";
+        }
         name.setText(Name);
         value = root.findViewById(R.id.tvValue);
         value.setText(Value);
         change = root.findViewById(R.id.tvChange);
         change.setText(Change);
         root.setOnClickListener(this);
+        LinearLayout ll1 = root.findViewById(R.id.ll1);
+        ViewGroup.LayoutParams params = ll1.getLayoutParams();
+        if(width!=0){
+            final float scale = getContext().getResources().getDisplayMetrics().density;
+            params.width =(int) (width * scale + 0.5f);
+        }
+        ll1.setLayoutParams(params);
         return root;
     }
 

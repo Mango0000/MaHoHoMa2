@@ -28,6 +28,8 @@ public class CompanyResolver extends AsyncTask<String, String, List<String>> {
             while((line = br.readLine())!=null){
                 result+=line+"\n";
             }
+            br.close();
+            urlConnection.disconnect();
             List<String> list = new ArrayList<>();
             JSONObject obj = new JSONObject(result);
             if(obj.has("profile")){
