@@ -1,8 +1,11 @@
 package at.htlkaindorf.mahohoma;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 
@@ -19,6 +22,7 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.preference.PreferenceManager;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -26,9 +30,11 @@ import java.io.InputStreamReader;
 import java.nio.Buffer;
 import java.util.Properties;
 
+
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
+    private static Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +61,22 @@ public class MainActivity extends AppCompatActivity {
         };
         getOnBackPressedDispatcher().addCallback(this, callback);
         readFile();
+        mContext = getApplicationContext();
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        prefs.getBoolean("sync", false);
+        String apikey = prefs.getString("apikey", "null");
+
+    }
+
+    public void openSettings(MenuItem view) {
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -82,5 +104,9 @@ public class MainActivity extends AppCompatActivity {
         }catch(IOException e){
             Log.w("MyActivity", "error");
         }
+    }
+
+    public static Context getContext() {
+        return mContext;
     }
 }

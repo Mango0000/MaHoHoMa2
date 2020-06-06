@@ -1,5 +1,6 @@
 package at.htlkaindorf.mahohoma.backgroundTasks;
 
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -16,7 +17,21 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import at.htlkaindorf.mahohoma.MainActivity;
+import at.htlkaindorf.mahohoma.ui.browse.BrowseFragment;
+
 public class SearchAPITops extends AsyncTask<String, String, List<String>> {
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+    }
+
+    @Override
+    protected void onPostExecute(List<String> strings) {
+        super.onPostExecute(strings);
+    }
+
     @Override
     protected List<String> doInBackground(String... strings) {
         try{

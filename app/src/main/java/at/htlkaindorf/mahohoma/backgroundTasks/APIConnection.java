@@ -1,6 +1,9 @@
 package at.htlkaindorf.mahohoma.backgroundTasks;
 
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
+
+import androidx.preference.PreferenceManager;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,12 +12,16 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import at.htlkaindorf.mahohoma.MainActivity;
+
 public class APIConnection extends AsyncTask<String, String, String> {
     @Override
     protected String doInBackground(String... strings) {
         try{
             URL url = null;
-            url = new URL("https://financialmodelingprep.com/api/v3/search?query="+strings[0]+"&limit=20");
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.getContext());
+            String apiKey = prefs.getString("apikey","");
+            url = new URL("https://financialmodelingprep.com/api/v3/search?query="+strings[0]+"&limit=20&apikey="+apiKey);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
             String result = "";

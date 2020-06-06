@@ -1,6 +1,9 @@
 package at.htlkaindorf.mahohoma.backgroundTasks;
 
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
+
+import androidx.preference.PreferenceManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -16,12 +19,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import at.htlkaindorf.mahohoma.MainActivity;
+
 public class SearchCompanies extends AsyncTask<String, String, List<String>> {
     @Override
     protected List<String> doInBackground(String... strings) {
         try{
             URL url = null;
-            url = new URL("https://financialmodelingprep.com/api/v3/search?query="+strings[0]+"&limit=20");
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.getContext());
+            String apiKey = prefs.getString("apikey","");
+            url = new URL("https://financialmodelingprep.com/api/v3/search?query="+strings[0]+"&limit=20"+"&apikey="+apiKey);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
             String result = "";
