@@ -8,11 +8,22 @@
             app:title="Request Saving" />
 
         <EditTextPreference
-            android:defaultValue=""
             android:key="apikey"
             android:selectAllOnFocus="true"
+            android:defaultValue="@string/default_api"
             android:singleLine="true"
-            android:title="API Key" />
+            android:title="API Key"
+            app:useSimpleSummaryProvider="true"
+            />
+
+        <SeekBarPreference
+            app:defaultValue="2"
+            app:key="searchlimit"
+            app:title="Search Limit"
+            app:min="1"
+            android:max="20"
+            app:showSeekBarValue="true"
+            />
 
     </PreferenceCategory>
 

@@ -28,7 +28,8 @@ public class SearchCompanies extends AsyncTask<String, String, List<String>> {
             URL url = null;
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.getContext());
             String apiKey = prefs.getString("apikey","");
-            url = new URL("https://financialmodelingprep.com/api/v3/search?query="+strings[0]+"&limit=20"+"&apikey="+apiKey);
+            int limit = prefs.getInt("searchlimit",1);
+            url = new URL("https://financialmodelingprep.com/api/v3/search?query="+strings[0]+"&limit="+limit+"&apikey="+apiKey);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
             String result = "";

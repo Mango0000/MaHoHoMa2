@@ -2,6 +2,7 @@ package at.htlkaindorf.mahohoma.backgroundTasks;
 
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import androidx.preference.PreferenceManager;
 
@@ -21,7 +22,9 @@ public class APIConnection extends AsyncTask<String, String, String> {
             URL url = null;
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.getContext());
             String apiKey = prefs.getString("apikey","");
-            url = new URL("https://financialmodelingprep.com/api/v3/search?query="+strings[0]+"&limit=20&apikey="+apiKey);
+            int limit = prefs.getInt("searchlimit",1);
+            Log.w("test", limit+"");
+            url = new URL("https://financialmodelingprep.com/api/v3/search?query="+strings[0]+"&limit="+limit+"&apikey="+apiKey);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
             String result = "";

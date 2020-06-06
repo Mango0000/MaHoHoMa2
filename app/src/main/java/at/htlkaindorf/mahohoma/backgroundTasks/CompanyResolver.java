@@ -27,7 +27,7 @@ public class CompanyResolver extends AsyncTask<String, String, List<String>> {
             URL url = null;
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.getContext());
             String apiKey = prefs.getString("apikey","");
-            url = new URL("https://financialmodelingprep.com/api/v3/company/profile/"+strings[0]+"&apikey="+apiKey);
+            url = new URL("https://financialmodelingprep.com/api/v3/profile/"+strings[0]+"?apikey="+apiKey);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
             String result = "";
@@ -38,14 +38,14 @@ public class CompanyResolver extends AsyncTask<String, String, List<String>> {
             br.close();
             urlConnection.disconnect();
             List<String> list = new ArrayList<>();
-            JSONObject obj = new JSONObject(result);
-            if(obj.has("profile")){
-            JSONObject profile = obj.getJSONObject("profile");
-                list.add(profile.getString("companyName"));
-                list.add(profile.getString("price"));
-                list.add(profile.getString("changes"));
-                list.add(profile.getString("image"));
-            }
+            JSONArray obj = new JSONArray(result);
+            /*if(obj.has("profile")){
+            JSONObject profile = obj.getJSONObject("profile");*/
+                list.add(obj.getJSONObject(0).getString("companyName"));
+                list.add(obj.getJSONObject(0).getString("price"));
+                list.add(obj.getJSONObject(0).getString("changes"));
+                list.add(obj.getJSONObject(0).getString("image"));
+           // }
             return list;
         }catch(MalformedURLException e){
             e.printStackTrace();
