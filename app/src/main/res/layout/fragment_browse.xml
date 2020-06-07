@@ -13,7 +13,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:src="@drawable/loading"
-        android:translationZ="10dp" />
+        android:translationZ="10dp"
+        android:background="@android:color/transparent"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
