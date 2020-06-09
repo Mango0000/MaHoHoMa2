@@ -113,12 +113,15 @@ public class BrowseFragment extends Fragment {
                     Handler handler = new Handler(Looper.getMainLooper());
                     handler.post(new Runnable() {
                         public void run() {
-                            // Instanitiate your dialog here
                             showMyDialog();
+                            animation.stop();
+                            iv.setVisibility(View.INVISIBLE);
                         }
                     });
                 }else if(most_active.is_done==2){
 
+                    animation.stop();
+                    iv.setVisibility(View.INVISIBLE);
                 }else{
                     FragmentManager mFragmentManager = getFragmentManager();
                     FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
@@ -128,10 +131,11 @@ public class BrowseFragment extends Fragment {
                     fragmentTransaction.add(R.id.llCompanies, most_gainer);
                     //Most Loser
                     fragmentTransaction.add(R.id.llCompanies, most_loser);
+
+                    animation.stop();
+                    iv.setVisibility(View.INVISIBLE);
                     fragmentTransaction.commit();
                 }
-                animation.stop();
-                iv.setVisibility(View.INVISIBLE);
             }
         };
         new Thread(runnable).start();
@@ -163,7 +167,9 @@ public class BrowseFragment extends Fragment {
                 TextView empty = new TextView(getContext());
                 empty.setText("No Results");
                 ll.addView(empty);
-            }else{
+            }else if(output.get(0)=="keyerror"){
+                showMyDialog();
+            }else {
                 for (String string:output) {
                     Log.e(TAG, string);
                     List<String> res = new CompanyResolver().execute(string).get();
