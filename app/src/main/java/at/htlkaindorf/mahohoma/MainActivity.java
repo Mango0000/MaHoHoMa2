@@ -25,9 +25,21 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.preference.PreferenceManager;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutput;
+import java.io.ObjectOutputStream;
+import java.io.OutputStreamWriter;
 import java.nio.Buffer;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 
@@ -60,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         getOnBackPressedDispatcher().addCallback(this, callback);
-        readFile();
+        readFavourites();
         mContext = getApplicationContext();
         PreferenceManager.setDefaultValues(this, R.xml.root_preferences, false);
     }
@@ -93,16 +105,31 @@ public class MainActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
-    public void readFile(){
+    public void writeFavourites(){
         try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(getAssets().open("test.txt")));
-            String next="";
-            while ((next = reader.readLine()) != null){
-                Log.w("MyActivity", next);
-            }
-            reader.close();
-        }catch(IOException e){
-            Log.w("MyActivity", "error");
+            String filename = "favourites";
+            ObjectOutputStream oos = new ObjectOutputStream(this.openFileOutput(filename, Context.MODE_PRIVATE));
+            List<String> mylist = new ArrayList<>();
+            mylist.add("AAPL");
+            oos.writeObject(mylist);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void readFavourites(){
+        try {
+            String filename = "favourites";
+            ObjectInputStream ois = new ObjectInputStream(this.openFileInput(filename));
+            List<String> mylist = (List<String>) ois.readObject();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
     }
 
