@@ -46,9 +46,9 @@ public class SearchCompanies extends AsyncTask<String, String, List<String>> {
             }
             return resultset;
         }catch(MalformedURLException e){
-            e.printStackTrace();
+            //e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         } catch (JSONException e) {
             if(e.toString().contains("Error Message")){
                 List<String> resultset = new ArrayList<>();

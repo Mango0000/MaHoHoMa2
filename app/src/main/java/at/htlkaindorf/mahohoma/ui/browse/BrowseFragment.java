@@ -1,17 +1,12 @@
 package at.htlkaindorf.mahohoma.ui.browse;
 
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.os.Message;
-import android.text.Editable;
-import android.text.method.KeyListener;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -21,27 +16,18 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import at.htlkaindorf.mahohoma.R;
-import at.htlkaindorf.mahohoma.backgroundTasks.APIConnection;
 import at.htlkaindorf.mahohoma.backgroundTasks.CompanyResolver;
-import at.htlkaindorf.mahohoma.backgroundTasks.SearchAPITops;
 import at.htlkaindorf.mahohoma.backgroundTasks.SearchCompanies;
 import at.htlkaindorf.mahohoma.ui.StockItem.StockItem;
 import at.htlkaindorf.mahohoma.ui.top_types.top_types;
