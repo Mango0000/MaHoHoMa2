@@ -110,6 +110,13 @@ public class BrowseFragment extends Fragment {
                 } while (most_active.is_done == 0 || most_gainer.is_done == 0 || most_loser.is_done == 0);
                 if(most_active.is_done==-1){
                     Log.e("Invalid API Key", most_active.is_done+"");
+                    Handler handler = new Handler(Looper.getMainLooper());
+                    handler.post(new Runnable() {
+                        public void run() {
+                            // Instanitiate your dialog here
+                            showMyDialog();
+                        }
+                    });
                 }else if(most_active.is_done==2){
 
                 }else{
@@ -128,6 +135,19 @@ public class BrowseFragment extends Fragment {
             }
         };
         new Thread(runnable).start();
+    }
+
+    private void showMyDialog() {
+        new AlertDialog.Builder(this.getContext())
+                .setTitle("API Key Error")
+                .setMessage("The API Key is invalid")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // continue with delete
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
     }
 
 

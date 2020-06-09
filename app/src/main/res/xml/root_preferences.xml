@@ -13,6 +13,7 @@
             android:defaultValue="@string/default_api"
             android:singleLine="true"
             android:title="API Key"
+            android:dialogMessage="Get your API key from https://financialmodelingprep.com/"
             app:useSimpleSummaryProvider="true"
             />
 
