@@ -39,18 +39,23 @@ public class SearchCompanies extends AsyncTask<String, String, List<String>> {
                 result+=line+"\n";
             }
             br.close();
-            JSONArray obj = new JSONArray(result);
             List<String> resultset = new ArrayList<>();
+            JSONArray obj = new JSONArray(result);
+
             for (int i = 0; i<obj.length(); i++) {
                 resultset.add(obj.getJSONObject(i).getString("symbol"));
             }
             return resultset;
         }catch(MalformedURLException e){
-            e.printStackTrace();
+            //e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         } catch (JSONException e) {
-            e.printStackTrace();
+            if(e.toString().contains("Error Message")){
+                List<String> resultset = new ArrayList<>();
+                resultset.add("keyerror");
+                return resultset;
+            }
         }
         return null;
     }
