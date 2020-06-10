@@ -127,13 +127,12 @@ public class StockItem extends Fragment implements View.OnClickListener {
                         .setMessage("Do you want to add this Item to your favourites?")
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-
+                                favourites.addFavourite(Symbol);
+                                setOnRemoveFavourite();
                             }
                         }).setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        favourites.addFavourite(Symbol);
-                        setOnRemoveFavourite();
                     }
                 })
                         .setIcon(R.drawable.ic_heart_svg)
