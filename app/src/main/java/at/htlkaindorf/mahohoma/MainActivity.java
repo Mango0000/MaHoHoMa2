@@ -42,6 +42,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import at.htlkaindorf.mahohoma.favourite.favourite;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -79,8 +81,8 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         getOnBackPressedDispatcher().addCallback(this, callback);
-        readFavourites();
         mContext = getApplicationContext();
+        favourite favourites = favourite.getTheInstance();
         PreferenceManager.setDefaultValues(this, R.xml.root_preferences, false);
     }
 
@@ -110,34 +112,6 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
-    }
-
-    public void writeFavourites(){
-        try {
-            String filename = "favourites";
-            ObjectOutputStream oos = new ObjectOutputStream(this.openFileOutput(filename, Context.MODE_PRIVATE));
-            List<String> mylist = new ArrayList<>();
-            mylist.add("AAPL");
-            oos.writeObject(mylist);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void readFavourites(){
-        try {
-            String filename = "favourites";
-            ObjectInputStream ois = new ObjectInputStream(this.openFileInput(filename));
-            List<String> mylist = (List<String>) ois.readObject();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
     }
 
     public static Context getContext() {
