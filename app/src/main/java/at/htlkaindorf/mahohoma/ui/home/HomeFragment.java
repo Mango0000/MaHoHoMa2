@@ -36,8 +36,8 @@ public class HomeFragment extends Fragment {
                 textView.setText(s);
             }
         });
-        btLog = root.findViewById(R.id.btOpen);
-        btLog.setOnClickListener(e -> click());
+        /*btLog = root.findViewById(R.id.btOpen);
+        btLog.setOnClickListener(e -> click());*/
         return root;
     }
 

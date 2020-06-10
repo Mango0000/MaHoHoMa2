@@ -72,7 +72,7 @@
             android:layout_marginTop="30dp"
             android:enabled="false"
             android:gravity="center|center_horizontal|center_vertical"
-            android:text="Enter" />
+            android:text="Login" />
 
         <Button
             android:id="@+id/createButton"

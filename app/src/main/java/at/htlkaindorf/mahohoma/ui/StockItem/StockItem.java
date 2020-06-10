@@ -35,14 +35,15 @@ public class StockItem extends Fragment implements View.OnClickListener {
     ImageView iv;
     TextView name, value, change;
 
-    String Name, Image, Value, Change;
+    String Name, Image, Value, Change, Symbol;
     int width;
 
-    public StockItem(String name, String image, String value, String change, int width) {
+    public StockItem(String name, String image, String value, String change, String symbol, int width) {
         Name = name;
         Image = image;
         Value = value;
         Change = change;
+        Symbol = symbol;
         this.width = width;
     }
 
@@ -87,7 +88,7 @@ public class StockItem extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        stock stock = new stock(Name, Image);
+        stock stock = new stock(Name, Image, Symbol);
         FragmentManager fragmentManager;
         if(width == 0){
             fragmentManager = getParentFragmentManager();

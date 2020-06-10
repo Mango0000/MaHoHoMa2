@@ -13,10 +13,6 @@ import at.htlkaindorf.mahohoma.database.DB_Database;
 
 public class DB_Access
 {
-    //ToDo: implement class as Singleton --> Von dieser Klasse darf es nur eine Klasse geben
-    //       private static Variable von sich selbst (DB_Access), getInstame Methode und returned, private Constructor
-    //       catch Exceptions and throw runtime-exception
-    //       DB_Database as member (Instanzvariable)
 
     private static DB_Access theInstance = null;
     private DB_Database database = null;

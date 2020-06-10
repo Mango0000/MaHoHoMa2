@@ -20,10 +20,13 @@ import java.util.List;
 
 import at.htlkaindorf.mahohoma.MainActivity;
 
-public class CompanyResolver extends AsyncTask<String, String, List<String>> {
+public class CompanyResolver extends AsyncTask<String, String, List<String>>
+{
     @Override
-    protected List<String> doInBackground(String... strings) {
-        try{
+    protected List<String> doInBackground(String... strings)
+    {
+        try
+        {
             URL url = null;
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.getContext());
             String apiKey = prefs.getString("apikey","");

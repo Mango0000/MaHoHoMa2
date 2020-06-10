@@ -17,7 +17,13 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+
 import at.htlkaindorf.mahohoma.R;
+import at.htlkaindorf.mahohoma.backgroundTasks.CompanyInformations;
+import at.htlkaindorf.mahohoma.backgroundTasks.CompanyResolver;
+import at.htlkaindorf.mahohoma.ui.StockItem.StockItem;
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
 
@@ -26,12 +32,13 @@ import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
  * Use the {@link stock#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class stock extends Fragment{
+public class stock extends Fragment
+{
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    private String CompanyName, Image;
-    private TextView name;
+    private String CompanyName = "", Image= "", Symbol= "", CompanyCEO= "", WebsiteLink= "", price= "", changes= "", description= "", sector= "", industry= "", exchange= "", exchangeShortName= "";
+    private TextView name, tvDescription, tvInformations;
     private ImageView ivCompany;
     private String mParam1;
     private String mParam2;
@@ -41,9 +48,11 @@ public class stock extends Fragment{
         // Required empty public constructor
     }
 
-    public stock(String CompanyName, String Image){
+    public stock(String CompanyName, String Image, String Symbol)
+    {
         this.CompanyName = CompanyName;
         this.Image = Image;
+        this.Symbol = Symbol;
     }
 
     /**
@@ -70,6 +79,7 @@ public class stock extends Fragment{
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        getCompanyInformations();
     }
 
     @Override
@@ -78,7 +88,19 @@ public class stock extends Fragment{
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_stock, container, false);
         name= root.findViewById(R.id.tvCompanyName);
-        name.setText(CompanyName);
+        tvDescription = root.findViewById(R.id.tvDescription);
+        tvInformations = root.findViewById(R.id.tvInformations);
+
+        name.setText(CompanyName+" ("+Symbol+")");
+        tvInformations.setText("CEO: " +CompanyCEO +"\n"
+                + WebsiteLink +"\n"
+                + "Price: " +price+"\n"
+                + "Change: " +changes+"\n"
+                + "Sector: " +sector+"\n"
+                + "Industry: " + industry+"\n"
+                + "Exchange: " +exchange+" ("+exchangeShortName+")\n");
+        tvDescription.setText("\n"+description);
+
         ivCompany = root.findViewById(R.id.IVCompanyImage);
         Picasso.get().load(Image).transform(new RoundedCornersTransformation(40,0)).fit().centerInside().into(ivCompany);
         graph = root.findViewById(R.id.graph);
@@ -96,5 +118,31 @@ public class stock extends Fragment{
         graph.getGridLabelRenderer().setVerticalAxisTitle("Sales");
         graph.getViewport().setScrollable(true);
         return root;
+    }
+
+    public void getCompanyInformations()
+    {
+        try
+        {
+            List<String> res = new CompanyInformations().execute(Symbol).get();
+            if(res != null)
+            {
+                changes = res.get(1);
+                price = res.get(0);
+                CompanyCEO = res.get(2);
+                sector = res.get(3);
+                WebsiteLink = res.get(4);
+                industry = res.get(5);
+                exchange = res.get(6);
+                exchangeShortName = res.get(7);
+                description = res.get(8);
+            }
+        }
+        catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
     }
 }

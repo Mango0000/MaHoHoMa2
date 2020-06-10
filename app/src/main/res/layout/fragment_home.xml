@@ -17,9 +17,4 @@
         android:textAlignment="center"
         android:textSize="20sp" />
 
-    <Button
-        android:id="@+id/btOpen"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="log in" />
 </LinearLayout>

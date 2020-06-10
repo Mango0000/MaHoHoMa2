@@ -146,9 +146,9 @@ public class top_types extends Fragment {
                         //fragmentTransaction.add(R.id.llCompanies,new StockItem(string, null, null,null));
                     } else {
                         if (res.get(0).equals("") || res.get(0).equals("null")) {
-                            fragmentTransaction.add(R.id.llStocks, new StockItem(string, res.get(3), res.get(1), res.get(2), 300));
+                            fragmentTransaction.add(R.id.llStocks, new StockItem(string, res.get(3), res.get(1), res.get(2), string,300));
                         } else {
-                            fragmentTransaction.add(R.id.llStocks, new StockItem(res.get(0), res.get(3), res.get(1), res.get(2), 300));
+                            fragmentTransaction.add(R.id.llStocks, new StockItem(res.get(0), res.get(3), res.get(1), res.get(2), string,300));
                         }
                     }
                 }

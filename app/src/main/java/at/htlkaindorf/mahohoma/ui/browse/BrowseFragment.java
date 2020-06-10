@@ -148,12 +148,12 @@ public class BrowseFragment extends Fragment {
                     Log.e(TAG, string);
                     List<String> res = new CompanyResolver().execute(string).get();
                     if(res == null){
-                        fragmentTransaction.add(R.id.llCompanies,new StockItem("test", null, null,null,0));
+                        fragmentTransaction.add(R.id.llCompanies,new StockItem("test", null, null,null,null,0));
                     }else{
                         if(res.get(0).equals("")||res.get(0).equals("null")){
-                            fragmentTransaction.add(R.id.llCompanies,new StockItem(string, res.get(3), res.get(1),res.get(2), 0));
+                            fragmentTransaction.add(R.id.llCompanies,new StockItem(string, res.get(3), res.get(1), res.get(2), string,0));
                         }else{
-                            fragmentTransaction.add(R.id.llCompanies,new StockItem(res.get(0), res.get(3), res.get(1),res.get(2), 0));
+                            fragmentTransaction.add(R.id.llCompanies,new StockItem(res.get(0), res.get(3), res.get(1), res.get(2), string,0));
                         }
                     }
                 }

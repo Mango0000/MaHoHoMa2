@@ -16,7 +16,7 @@ import at.htlkaindorf.mahohoma.database.DB_Access;
 
 public class LoginPage extends AppCompatActivity
 {
-    //private DB_Access db_access = DB_Access.getInstance();
+    private DB_Access db_access = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -76,17 +76,30 @@ public class LoginPage extends AppCompatActivity
             }
         });
 
+        enterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickLogin();
+            }
+        });
+
         createAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
             {
                 onClickCreateAccount();
+                //db_access = DB_Access.getInstance();
             }
         });
     }
 
-    private void onClickCreateAccount()
+    private void onClickLogin()
     {
+        Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(myIntent);
+    }
+
+    private void onClickCreateAccount() {
         Intent myIntent = new Intent(getApplicationContext(), CreateAccountPage.class);
         startActivity(myIntent);
     }

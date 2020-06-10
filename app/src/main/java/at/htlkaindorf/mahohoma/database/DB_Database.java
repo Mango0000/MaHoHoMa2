@@ -79,11 +79,17 @@ public class DB_Database
 
     private void loadProperties()
     {
-        db_url = DB_Properties.getProperty("url");
+        /*db_url = DB_Properties.getProperty("url");
         db_databasename = DB_Properties.getProperty("databasename");
         db_username = DB_Properties.getProperty("username");
         db_password = DB_Properties.getProperty("password");
-        db_driver = DB_Properties.getProperty("driver");
+        db_driver = DB_Properties.getProperty("driver");*/
+
+        db_url = "jdbc:postgresql://localhost/";
+        db_databasename = "studentdb";
+        db_username = "postgres";
+        db_password = "postgres";
+        db_driver = "org.postgresql.Driver";
 
     }
 
