@@ -1,5 +1,7 @@
 package at.htlkaindorf.mahohoma.ui.stock;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -23,6 +25,7 @@ import java.util.concurrent.ExecutionException;
 import at.htlkaindorf.mahohoma.R;
 import at.htlkaindorf.mahohoma.backgroundTasks.CompanyInformations;
 import at.htlkaindorf.mahohoma.backgroundTasks.CompanyResolver;
+import at.htlkaindorf.mahohoma.favourite.favourite;
 import at.htlkaindorf.mahohoma.ui.StockItem.StockItem;
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
@@ -32,17 +35,17 @@ import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
  * Use the {@link stock#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class stock extends Fragment
-{
+public class stock extends Fragment implements View.OnClickListener {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private String CompanyName = "", Image= "", Symbol= "", CompanyCEO= "", WebsiteLink= "", price= "", changes= "", description= "", sector= "", industry= "", exchange= "", exchangeShortName= "";
     private TextView name, tvDescription, tvInformations;
-    private ImageView ivCompany;
+    private ImageView ivCompany, ivFavourite;
     private String mParam1;
     private String mParam2;
     private GraphView graph;
+    private favourite favourites;
 
     public stock() {
         // Required empty public constructor
@@ -53,6 +56,7 @@ public class stock extends Fragment
         this.CompanyName = CompanyName;
         this.Image = Image;
         this.Symbol = Symbol;
+        favourites = favourite.getTheInstance();
     }
 
     /**
@@ -90,7 +94,11 @@ public class stock extends Fragment
         name= root.findViewById(R.id.tvCompanyName);
         tvDescription = root.findViewById(R.id.tvDescription);
         tvInformations = root.findViewById(R.id.tvInformations);
-
+        ivFavourite = root.findViewById(R.id.Favourite);
+        if(favourites.isFavourite(Symbol)){
+            ivFavourite.setImageResource(R.drawable.ic_heart_svg);
+        }
+        ivFavourite.setOnClickListener(this);
         name.setText(CompanyName+" ("+Symbol+")");
         tvInformations.setText("CEO: " +CompanyCEO +"\n"
                 + WebsiteLink +"\n"
@@ -144,5 +152,51 @@ public class stock extends Fragment
             e.printStackTrace();
         }
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(favourites.isFavourite(Symbol)){
+            removeFavourite();
+        }else{
+            addFavourite();
+        }
+    }
+
+    private void addFavourite(){
+        new AlertDialog.Builder(getContext())
+                .setTitle("Add to Favourite")
+                .setMessage("Do you want to add this Item to your favourites?")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        favourites.addFavourite(Symbol);
+                        ivFavourite.setImageResource(R.drawable.ic_heart_svg);
+                    }
+                }).setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        })
+                .setIcon(R.drawable.ic_heart_svg)
+                .show();
+    }
+
+    private void removeFavourite(){
+        new AlertDialog.Builder(getContext())
+                .setTitle("Remove Favourite")
+                .setMessage("Do you want to remove this Item from your favourites?")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        favourites.removeFavourite(Symbol);
+                        ivFavourite.setImageResource(R.drawable.ic_heart_disabled_svg);
+                    }
+                }).setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        })
+                .setIcon(R.drawable.ic_heart_svg_remove)
+                .show();
     }
 }
