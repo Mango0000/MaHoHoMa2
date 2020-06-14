@@ -36,11 +36,14 @@
                 android:id="@+id/tvCompanyName"
                 android:layout_width="272dp"
                 android:layout_height="67dp"
+                android:clickable="true"
                 android:gravity="center_vertical"
+                android:linksClickable="true"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
                 android:text="CompanyName"
                 android:textColor="@color/design_default_color_surface"
+                android:textColorLink="#FFFFFF"
                 android:textSize="18sp" />
 
         </LinearLayout>

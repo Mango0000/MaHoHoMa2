@@ -4,8 +4,12 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
+import androidx.core.text.HtmlCompat;
 import androidx.fragment.app.Fragment;
 
+import android.text.Html;
+import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -99,7 +103,11 @@ public class stock extends Fragment implements View.OnClickListener {
             ivFavourite.setImageResource(R.drawable.ic_heart_svg);
         }
         ivFavourite.setOnClickListener(this);
-        name.setText(CompanyName+" ("+Symbol+")");
+
+        name.setMovementMethod(LinkMovementMethod.getInstance());
+        String text = "<a href='"+WebsiteLink+"'> "+CompanyName+" ("+Symbol+")"+" </a>";
+        name.setText(HtmlCompat.fromHtml(text, HtmlCompat.FROM_HTML_MODE_LEGACY));
+
         tvInformations.setText("CEO: " +CompanyCEO +"\n"
                 + WebsiteLink +"\n"
                 + "Price: " +price+"\n"

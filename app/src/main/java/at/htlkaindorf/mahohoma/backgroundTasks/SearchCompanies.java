@@ -42,11 +42,14 @@ public class SearchCompanies extends AsyncTask<String, String, List<String>> {
             List<String> resultset = new ArrayList<>();
             JSONArray obj = new JSONArray(result);
 
-            for (int i = 0; i<obj.length(); i++) {
+            for (int i = 0; i<obj.length(); i++)
+            {
                 resultset.add(obj.getJSONObject(i).getString("symbol"));
             }
             return resultset;
-        }catch(MalformedURLException e){
+
+        }
+        catch(MalformedURLException e){
             //e.printStackTrace();
         } catch (IOException e) {
             //e.printStackTrace();
