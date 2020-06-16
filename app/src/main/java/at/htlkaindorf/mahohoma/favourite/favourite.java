@@ -28,6 +28,10 @@ public class favourite {
         return false;
     }
 
+    public List<String> getFavourites(){
+        return favourites;
+    }
+
     private void loadFavourites() {
         try {
             ObjectInputStream ois = new ObjectInputStream(MainActivity.getContext().openFileInput(filename));

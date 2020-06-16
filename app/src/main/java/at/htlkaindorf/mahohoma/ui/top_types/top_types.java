@@ -125,6 +125,7 @@ public class top_types extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+
         FragmentManager mFragmentManager = getChildFragmentManager();
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
         if (output != null) {
