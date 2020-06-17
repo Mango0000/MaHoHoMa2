@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -49,6 +50,7 @@ public class top_types extends Fragment {
     private LinearLayout llStocks;
     private String searchurl="";
     List<String> output;
+    List<List<String>> res = new ArrayList<>();
 
     public top_types() {
         // Required empty public constructor
@@ -84,6 +86,9 @@ public class top_types extends Fragment {
                 SearchAPITops stops = new SearchAPITops();
                 try {
                     output = stops.execute(searchurl).get();
+                    for (String string : output) {
+                        res.add(new CompanyResolver().execute(string).get());
+                    }
                 } catch (ExecutionException e) {
                     e.printStackTrace();
                 } catch (InterruptedException e) {
@@ -134,24 +139,28 @@ public class top_types extends Fragment {
                 empty.setText("No Results");
                 llStocks.addView(empty);
             } else {
+                List<String> item = null;
+                int i = 0;
                 for (String string : output) {
-                    List<String> res = null;
+                    item = res.get(i);
+                    /*List<String> res = null;
                     try {
-                        res = new CompanyResolver().execute(string).get();
+                        //res = new CompanyResolver().execute(string).get();
                     } catch (ExecutionException e) {
                         e.printStackTrace();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
-                    }
-                    if (res.isEmpty()) {
+                    }*/
+                    if (item.isEmpty()||item==null) {
                         //fragmentTransaction.add(R.id.llCompanies,new StockItem(string, null, null,null));
                     } else {
-                        if (res.get(0).equals("") || res.get(0).equals("null")) {
-                            fragmentTransaction.add(R.id.llStocks, new StockItem(string, res.get(3), res.get(1), res.get(2), string,300));
+                        if (item.get(0).equals("") || item.get(0).equals("null")) {
+                            fragmentTransaction.add(R.id.llStocks, new StockItem(string, item.get(3), item.get(1), item.get(2), string,300));
                         } else {
-                            fragmentTransaction.add(R.id.llStocks, new StockItem(res.get(0), res.get(3), res.get(1), res.get(2), string,300));
+                            fragmentTransaction.add(R.id.llStocks, new StockItem(item.get(0), item.get(3), item.get(1), item.get(2), string,300));
                         }
                     }
+                    i++;
                 }
             }
         }else{
