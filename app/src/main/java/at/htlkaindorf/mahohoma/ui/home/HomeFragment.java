@@ -1,5 +1,7 @@
 package at.htlkaindorf.mahohoma.ui.home;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,8 +57,26 @@ public class HomeFragment extends Fragment {
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
         for(String string: favouritesList){
             List<String> res = new CompanyResolver().execute(string).get();
-            fragmentTransaction.add(R.id.llFavourites,new StockItem(string, res.get(3), res.get(1), res.get(2), string,0));
+            if(res.get(0).equals("keyerror")){
+                showMyDialog();
+                break;
+            }else{
+                fragmentTransaction.add(R.id.llFavourites,new StockItem(string, res.get(3), res.get(1), res.get(2), string,0));
+            }
         }
         fragmentTransaction.commit();
+    }
+
+    private void showMyDialog() {
+        new AlertDialog.Builder(this.getContext())
+                .setTitle("API Key Error")
+                .setMessage("The API Key is invalid")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // continue with delete
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
     }
 }

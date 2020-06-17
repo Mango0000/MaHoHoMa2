@@ -55,7 +55,11 @@ public class CompanyResolver extends AsyncTask<String, String, List<String>>
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JSONException e) {
-            e.printStackTrace();
+            if(e.toString().contains("Error Message")){
+                List<String> resultset = new ArrayList<>();
+                resultset.add("keyerror");
+                return resultset;
+            }
         }
         return null;
     }
