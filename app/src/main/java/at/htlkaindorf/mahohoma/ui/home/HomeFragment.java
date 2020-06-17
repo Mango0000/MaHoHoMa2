@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -36,6 +37,7 @@ public class HomeFragment extends Fragment {
         /*btLog = root.findViewById(R.id.btOpen);
         btLog.setOnClickListener(e -> click());*/
         favourites = favourite.getTheInstance();
+        llFavourites = root.findViewById(R.id.llFavourites);
         return root;
     }
 
@@ -53,8 +55,14 @@ public class HomeFragment extends Fragment {
 
     private void loadFavourites() throws ExecutionException, InterruptedException {
         List<String> favouritesList = favourites.getFavourites();
+        llFavourites.removeAllViews();
         FragmentManager mFragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+        if(favouritesList.isEmpty()){
+            TextView tvNoFavourite = new TextView(this.getContext());
+            tvNoFavourite.setText("No Favourites found");
+            llFavourites.addView(tvNoFavourite);
+        }
         for(String string: favouritesList){
             List<String> res = new CompanyResolver().execute(string).get();
             if(res.get(0).equals("keyerror")){
