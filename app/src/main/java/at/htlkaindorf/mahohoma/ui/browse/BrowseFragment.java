@@ -149,7 +149,7 @@ public class BrowseFragment extends Fragment {
             FragmentManager mFragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
             ll.removeAllViews();
-            if(output == null){
+            if(output == null || output.isEmpty()){
                 TextView empty = new TextView(getContext());
                 empty.setText("No Results");
                 ll.addView(empty);
