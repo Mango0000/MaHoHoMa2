@@ -15,7 +15,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="228dp"
+        android:layout_height="160dp"
         android:background="@drawable/roundbackground"
         android:backgroundTint="#38000000"
         android:orientation="vertical"
@@ -64,7 +64,8 @@
             <ScrollView
                 android:id="@+id/padding"
                 android:layout_width="match_parent"
-                android:layout_height="139dp">
+                android:layout_height="139dp"
+                android:paddingBottom="10dp">
 
                 <TextView
                     android:id="@+id/tvInformations"
@@ -98,7 +99,7 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="170dp">
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -120,7 +121,7 @@
                 <TextView
                     android:id="@+id/tvDescription"
                     android:layout_width="357dp"
-                    android:layout_height="150dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:paddingLeft="20dp"
                     android:paddingRight="10dp"
