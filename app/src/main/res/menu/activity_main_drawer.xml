@@ -10,5 +10,9 @@
             android:id="@+id/nav_browse"
             android:icon="@drawable/ic_menu_browse"
             android:title="@string/menu_browse" />
+        <item
+            android:id="@+id/nav_commodities"
+            android:icon="@drawable/ic_baseline_local_gas_station_24"
+            android:title="Commodities" />
     </group>
 </menu>

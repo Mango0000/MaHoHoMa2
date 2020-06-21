@@ -32,7 +32,8 @@ import at.htlkaindorf.mahohoma.backgroundTasks.SearchCompanies;
 import at.htlkaindorf.mahohoma.ui.StockItem.StockItem;
 import at.htlkaindorf.mahohoma.ui.top_types.top_types;
 
-public class BrowseFragment extends Fragment {
+public class BrowseFragment extends Fragment
+{
     EditText etsearch;
     LinearLayout ll;
     private static Context mContext;

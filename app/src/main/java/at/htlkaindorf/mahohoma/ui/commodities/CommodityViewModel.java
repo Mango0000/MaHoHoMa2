@@ -1,14 +1,14 @@
-package at.htlkaindorf.mahohoma.ui.browse;
+package at.htlkaindorf.mahohoma.ui.commodities;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class BrowseViewModel extends ViewModel
+public class CommodityViewModel extends ViewModel
 {
     private MutableLiveData<String> mText;
 
-    public BrowseViewModel() {
+    public CommodityViewModel() {
         mText = new MutableLiveData<>();
         mText.setValue("This is browse fragment");
     }

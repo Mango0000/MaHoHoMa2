@@ -19,8 +19,10 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import at.htlkaindorf.mahohoma.R;
+import at.htlkaindorf.mahohoma.backgroundTasks.CommodityResolver;
 import at.htlkaindorf.mahohoma.backgroundTasks.CompanyResolver;
 import at.htlkaindorf.mahohoma.favourite.favourite;
+import at.htlkaindorf.mahohoma.ui.CommodityItem.CommodityItem;
 import at.htlkaindorf.mahohoma.ui.StockItem.StockItem;
 
 public class HomeFragment extends Fragment {
@@ -34,8 +36,6 @@ public class HomeFragment extends Fragment {
         homeViewModel =
                 ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
-        /*btLog = root.findViewById(R.id.btOpen);
-        btLog.setOnClickListener(e -> click());*/
         favourites = favourite.getTheInstance();
         llFavourites = root.findViewById(R.id.llFavourites);
         return root;
@@ -53,7 +53,8 @@ public class HomeFragment extends Fragment {
         }
     }
 
-    private void loadFavourites() throws ExecutionException, InterruptedException {
+    private void loadFavourites() throws ExecutionException, InterruptedException
+    {
         List<String> favouritesList = favourites.getFavourites();
         llFavourites.removeAllViews();
         FragmentManager mFragmentManager = getFragmentManager();
@@ -63,14 +64,33 @@ public class HomeFragment extends Fragment {
             tvNoFavourite.setText("No Favourites found");
             llFavourites.addView(tvNoFavourite);
         }
-        for(String string: favouritesList){
+        for(String string: favouritesList)
+        {
             List<String> res = new CompanyResolver().execute(string).get();
-            if(res.get(0).equals("keyerror")){
-                showMyDialog();
-                break;
-            }else{
-                fragmentTransaction.add(R.id.llFavourites,new StockItem(string, res.get(3), res.get(1), res.get(2), string,0));
+            List<String> resComm = new CommodityResolver().execute(string).get();
+            try
+            {
+                if(res.get(0).equals("keyerror"))
+                {
+                    showMyDialog();
+                    break;
+                }
+                else {
+                    fragmentTransaction.add(R.id.llFavourites,new StockItem(string, res.get(3), res.get(1), res.get(2), string,0));
+                }
             }
+            catch(NullPointerException ex)
+            {
+                if(resComm.get(0).equals("keyerror"))
+                {
+                    showMyDialog();
+                    break;
+                }
+                else {
+                    fragmentTransaction.add(R.id.llFavourites,new CommodityItem(resComm.get(0), resComm.get(1), resComm.get(2), string,0));
+                }
+            }
+
         }
         fragmentTransaction.commit();
     }
