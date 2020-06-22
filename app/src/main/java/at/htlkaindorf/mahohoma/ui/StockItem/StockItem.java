@@ -56,9 +56,6 @@ public class StockItem extends Fragment implements View.OnClickListener
 
     private StockItemViewModel mViewModel;
 
-    /*public static StockItem newInstance() {
-        return new StockItem(null, null, null, null);
-    }*/
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,

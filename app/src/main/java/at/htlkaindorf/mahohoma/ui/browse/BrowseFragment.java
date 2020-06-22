@@ -36,7 +36,6 @@ public class BrowseFragment extends Fragment
 {
     EditText etsearch;
     LinearLayout ll;
-    private static Context mContext;
     ImageView iv;
     TextView tve;
     AnimationDrawable animation;
@@ -58,11 +57,8 @@ public class BrowseFragment extends Fragment
                 return false;
             }
         });
-        //etsearch.setOn(this::onSearch);
         ll = root.findViewById(R.id.llCompanies);
-        //fragment = inflater.inflate(R.layout.stock_item_fragment, container, true);
-        mContext = this.getContext();
-
+        //create loading animation
         animation = (AnimationDrawable) iv.getDrawable();
         return root;
     }
@@ -76,10 +72,7 @@ public class BrowseFragment extends Fragment
     @Override
     public void onResume() {
         super.onResume();
-        //animation.start();
         waitForCreation();
-        //animation.stop();
-        //iv.setVisibility(View.INVISIBLE);
         ll.removeAllViews();
     }
 
@@ -87,8 +80,10 @@ public class BrowseFragment extends Fragment
         top_types most_active = new top_types("Most Active");
         top_types most_gainer = new top_types("Most Gainer");
         top_types most_loser = new top_types("Most Loser");
+        //start animation
         iv.setVisibility(View.VISIBLE);
         animation.start();
+        //background loading
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
@@ -199,11 +194,4 @@ public class BrowseFragment extends Fragment
             e.printStackTrace();
         }
     }
-
-    public static Context getContext2() {
-        return mContext;
-    }
-
-
-
 }

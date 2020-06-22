@@ -103,7 +103,6 @@ public class top_types extends Fragment {
                 }
             }
         };
-        //todo request saving mode
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.getContext());
         Boolean isSavingMode = prefs.getBoolean("sync", false);
         if(!isSavingMode){
@@ -121,7 +120,6 @@ public class top_types extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_top_types, container, false);
         tvTypeName = root.findViewById(R.id.tvTypeName);
         tvTypeName.setText(name);
@@ -145,16 +143,8 @@ public class top_types extends Fragment {
                 int i = 0;
                 for (String string : output) {
                     item = res.get(i);
-                    /*List<String> res = null;
-                    try {
-                        //res = new CompanyResolver().execute(string).get();
-                    } catch (ExecutionException e) {
-                        e.printStackTrace();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }*/
                     if (item.isEmpty()||item==null) {
-                        //fragmentTransaction.add(R.id.llCompanies,new StockItem(string, null, null,null));
+
                     } else {
                         if (item.get(0).equals("") || item.get(0).equals("null")) {
                             fragmentTransaction.add(R.id.llStocks, new StockItem(string, item.get(3), item.get(1), item.get(2), string,300));

@@ -26,24 +26,16 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private static Context mContext;
-    private Boolean start = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-        /*if(start)
-        {
-            startActivity(new Intent(getApplicationContext(), LoginPage.class));
-            start = false;
-        }*/
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home,  R.id.nav_browse, R.id.nav_commodities)
                 .setDrawerLayout(drawer)
@@ -59,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
         };
         getOnBackPressedDispatcher().addCallback(this, callback);
         mContext = getApplicationContext();
-        favourite favourites = favourite.getTheInstance();
         PreferenceManager.setDefaultValues(this, R.xml.root_preferences, false);
     }
 
@@ -79,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }

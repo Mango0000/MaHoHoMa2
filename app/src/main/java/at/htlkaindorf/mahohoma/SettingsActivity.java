@@ -30,7 +30,6 @@ public class SettingsActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Settings");
         parent.setContentInsetsAbsolute(0, 0);
-        //TextView name = view.findViewById(R.id.);
     }
 
     public static class SettingsFragment extends PreferenceFragmentCompat {
