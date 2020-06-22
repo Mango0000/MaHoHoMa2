@@ -85,6 +85,9 @@ public class HomeFragment extends Fragment {
                 {
                     showMyDialog();
                     break;
+                }else if(resComm.get(0).equals("noConnection")){
+                    showNoConnectionDialog();
+                    break;
                 }
                 else {
                     fragmentTransaction.add(R.id.llFavourites,new CommodityItem(resComm.get(0), resComm.get(1), resComm.get(2), string,0));
@@ -99,6 +102,19 @@ public class HomeFragment extends Fragment {
         new AlertDialog.Builder(this.getContext())
                 .setTitle("API Key Error")
                 .setMessage("The API Key is invalid")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // continue with delete
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
+    }
+
+    private void showNoConnectionDialog() {
+        new AlertDialog.Builder(this.getContext())
+                .setTitle("No connection")
+                .setMessage("No internet conenction available")
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // continue with delete

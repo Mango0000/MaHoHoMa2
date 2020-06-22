@@ -52,7 +52,9 @@ public class CommodityResolver extends AsyncTask<String, String, List<String>>
         }catch(MalformedURLException e){
             e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
+            List<String> resultset = new ArrayList<>();
+            resultset.add("noConnection");
+            return resultset;
         } catch (JSONException e) {
             if(e.toString().contains("Error Message")){
                 List<String> resultset = new ArrayList<>();

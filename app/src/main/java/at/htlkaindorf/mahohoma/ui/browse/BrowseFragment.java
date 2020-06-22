@@ -109,6 +109,16 @@ public class BrowseFragment extends Fragment
 
                     animation.stop();
                     iv.setVisibility(View.INVISIBLE);
+                }else if(most_active.is_done==-2){
+                    Handler handler = new Handler(Looper.getMainLooper());
+                    handler.post(new Runnable() {
+                        public void run() {
+                            showNoConnectionDialog();
+                            animation.stop();
+                            iv.setVisibility(View.INVISIBLE);
+                        }
+                    });
+
                 }else{
                     FragmentManager mFragmentManager = getFragmentManager();
                     FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
@@ -132,6 +142,19 @@ public class BrowseFragment extends Fragment
         new AlertDialog.Builder(this.getContext())
                 .setTitle("API Key Error")
                 .setMessage("The API Key is invalid")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // continue with delete
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
+    }
+
+    private void showNoConnectionDialog() {
+        new AlertDialog.Builder(this.getContext())
+                .setTitle("No connection")
+                .setMessage("No internet conenction available")
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // continue with delete

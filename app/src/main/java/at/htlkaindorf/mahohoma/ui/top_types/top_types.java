@@ -93,10 +93,12 @@ public class top_types extends Fragment {
                     e.printStackTrace();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
+                }catch (NullPointerException e){
+                    is_done=-2;
                 }
-                if(output==null){
+                if(is_done!=-2&&output==null){
                     is_done=-1;
-                }else{
+                }else if(is_done!=-2){
                     is_done=1;
                 }
             }
