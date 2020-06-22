@@ -88,18 +88,13 @@ public class CommodityItem extends Fragment implements View.OnClickListener
     public void onClick(View v)
     {
         commodity comm = new commodity(Symbol);
-        FragmentManager fragmentManager;
-        if(width == 0){
-            fragmentManager = getParentFragmentManager();
-        }else{
-            fragmentManager = getParentFragment().getParentFragmentManager();
-        }
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.nav_host_fragment, comm);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+            fragmentTransaction.commit();
 
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.nav_host_fragment, comm);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-        fragmentTransaction.commit();
     }
 
     public void setOnRemoveFavourite(){

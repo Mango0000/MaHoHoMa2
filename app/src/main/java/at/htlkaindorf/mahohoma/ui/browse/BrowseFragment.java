@@ -116,17 +116,19 @@ public class BrowseFragment extends Fragment
 
                 }else{
                     FragmentManager mFragmentManager = getFragmentManager();
-                    FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-                    //Most Active
-                    fragmentTransaction.add(R.id.llCompanies, most_active);
-                    //Most Gainer
-                    fragmentTransaction.add(R.id.llCompanies, most_gainer);
-                    //Most Loser
-                    fragmentTransaction.add(R.id.llCompanies, most_loser);
+                    if(mFragmentManager!=null) {
+                        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+                        //Most Active
+                        fragmentTransaction.add(R.id.llCompanies, most_active);
+                        //Most Gainer
+                        fragmentTransaction.add(R.id.llCompanies, most_gainer);
+                        //Most Loser
+                        fragmentTransaction.add(R.id.llCompanies, most_loser);
 
-                    animation.stop();
-                    iv.setVisibility(View.INVISIBLE);
-                    fragmentTransaction.commit();
+                        animation.stop();
+                        iv.setVisibility(View.INVISIBLE);
+                        fragmentTransaction.commit();
+                    }
                 }
             }
         };
