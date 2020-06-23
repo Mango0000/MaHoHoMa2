@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import android.text.Html;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GridLabelRenderer;
+import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.squareup.picasso.Picasso;
@@ -29,6 +31,7 @@ import java.util.concurrent.ExecutionException;
 import at.htlkaindorf.mahohoma.R;
 import at.htlkaindorf.mahohoma.backgroundTasks.CompanyInformations;
 import at.htlkaindorf.mahohoma.backgroundTasks.CompanyResolver;
+import at.htlkaindorf.mahohoma.backgroundTasks.IncomeStatement;
 import at.htlkaindorf.mahohoma.favourite.favourite;
 import at.htlkaindorf.mahohoma.ui.StockItem.StockItem;
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
@@ -120,20 +123,57 @@ public class stock extends Fragment implements View.OnClickListener {
         ivCompany = root.findViewById(R.id.IVCompanyImage);
         Picasso.get().load(Image).transform(new RoundedCornersTransformation(40,0)).fit().centerInside().into(ivCompany);
         graph = root.findViewById(R.id.graph);
-        LineGraphSeries <DataPoint> series = new LineGraphSeries< >(new DataPoint[] {
-                new DataPoint(0, 1),
-                new DataPoint(Integer.valueOf(1), Integer.valueOf(2)),
-                new DataPoint(Integer.valueOf(2), Integer.valueOf(3)),
-                new DataPoint(Integer.valueOf(3), Integer.valueOf(4)),
-                new DataPoint(Integer.valueOf(5), Integer.valueOf(2)),
-                new DataPoint(Integer.valueOf(6), Integer.valueOf(3)),
-                new DataPoint(Integer.valueOf(7), Integer.valueOf(8)),
-        });
-        graph.addSeries(series);
-        graph.getGridLabelRenderer().setHorizontalAxisTitle("Date");
-        graph.getGridLabelRenderer().setVerticalAxisTitle("Sales");
-        graph.getViewport().setScrollable(true);
+        try {
+            DataPoint revenue[] = new IncomeStatement().execute(Symbol).get();
+            if(revenue!=null){
+                Log.w("test",revenue.toString());
+                LineGraphSeries<DataPoint> series = new LineGraphSeries<>(revenue);
+                graph.addSeries(series);
+                graph.getGridLabelRenderer().setHorizontalAxisTitle("Date");
+                graph.getGridLabelRenderer().setVerticalAxisTitle("Revenue");
+                graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(this.getContext()));
+                graph.getGridLabelRenderer().setNumHorizontalLabels(2);
+                //graph.getViewport().setScrollable(true);
+                double xmin=revenue[0].getX(), xmax=revenue[0].getX(), ymin=revenue[0].getY(), ymax=revenue[0].getY();
+                for(DataPoint dp: revenue){
+                    if(dp.getX()>xmax){
+                        xmax=dp.getX();
+                    }
+                    if(dp.getX()<xmin){
+                        xmin=dp.getX();
+                    }
+                    if(dp.getY()>ymax){
+                        ymax=dp.getY();
+                    }
+                    if(dp.getY()<ymin){
+                        ymin=dp.getY();
+                    }
+                }
+
+               // graph.getViewport().setMinX(xmin);
+                //graph.getViewport().setMaxX(xmax);
+                //graph.getViewport().setMinY(ymin);
+               // graph.getViewport().setMaxY(ymax);
+                graph.getViewport().setScalable(true);
+                graph.getViewport().setScalableY(true);
+
+                //graph.getViewport().setYAxisBoundsManual(true);
+                //graph.getViewport().setXAxisBoundsManual(true);
+            }
+        }catch (Exception e){
+            TextView tv = new TextView(this.getContext());
+            tv.setText("No Revenue");
+            replaceView(graph, tv);
+        }
         return root;
+    }
+
+    private void replaceView(View oldV,View newV){
+        ViewGroup par = (ViewGroup)oldV.getParent();
+        if(par == null){return;}
+        int i1 = par.indexOfChild(oldV);
+        par.removeViewAt(i1);
+        par.addView(newV,i1);
     }
 
     public void getCompanyInformations()
