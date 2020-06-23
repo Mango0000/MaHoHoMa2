@@ -7,8 +7,6 @@ import android.os.Bundle;
 import androidx.core.text.HtmlCompat;
 import androidx.fragment.app.Fragment;
 
-import android.text.Html;
-import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,23 +16,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.GridLabelRenderer;
 import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Transformation;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import at.htlkaindorf.mahohoma.R;
-import at.htlkaindorf.mahohoma.backgroundTasks.CompanyChart;
+import at.htlkaindorf.mahohoma.backgroundTasks.Chart;
 import at.htlkaindorf.mahohoma.backgroundTasks.CompanyInformations;
-import at.htlkaindorf.mahohoma.backgroundTasks.CompanyResolver;
-import at.htlkaindorf.mahohoma.backgroundTasks.IncomeStatement;
 import at.htlkaindorf.mahohoma.favourite.favourite;
-import at.htlkaindorf.mahohoma.ui.StockItem.StockItem;
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
 
@@ -125,17 +119,17 @@ public class stock extends Fragment implements View.OnClickListener {
         Picasso.get().load(Image).transform(new RoundedCornersTransformation(40,0)).fit().centerInside().into(ivCompany);
         graph = root.findViewById(R.id.graph);
         try {
-            DataPoint revenue[] = new CompanyChart().execute(Symbol).get();
+            DataPoint revenue[] = new Chart().execute(Symbol).get();
             if(revenue!=null){
-                Log.w("test",revenue.toString());
+                Log.w("test",revenue.length+"");
                 LineGraphSeries<DataPoint> series = new LineGraphSeries<>(revenue);
                 graph.addSeries(series);
                 graph.getGridLabelRenderer().setHorizontalAxisTitle("Date");
                 graph.getGridLabelRenderer().setVerticalAxisTitle("Price");
-                graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(this.getContext()));
+                graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(this.getContext(), new SimpleDateFormat("YYYY.MM.dd. HH")));
                 graph.getGridLabelRenderer().setNumHorizontalLabels(2);
                 //graph.getViewport().setScrollable(true);
-                double xmin=revenue[0].getX(), xmax=revenue[0].getX(), ymin=revenue[0].getY(), ymax=revenue[0].getY();
+               /* double xmin=revenue[0].getX(), xmax=revenue[0].getX(), ymin=revenue[0].getY(), ymax=revenue[0].getY();
                 for(DataPoint dp: revenue){
                     if(dp.getX()>xmax){
                         xmax=dp.getX();
@@ -150,11 +144,15 @@ public class stock extends Fragment implements View.OnClickListener {
                         ymin=dp.getY();
                     }
                 }
-
-               // graph.getViewport().setMinX(xmin);
-                //graph.getViewport().setMaxX(xmax);
-                //graph.getViewport().setMinY(ymin);
-               // graph.getViewport().setMaxY(ymax);
+                //graph.getViewport().setXAxisBoundsManual(true);
+                graph.getGridLabelRenderer().setHumanRounding(false);
+                /*graph.getViewport().setMinX(xmin);
+                graph.getViewport().setMaxX(xmax);
+                graph.getViewport().setMinY(ymin);
+                graph.getViewport().setMaxY(ymax);*/
+                /*graph.getViewport().setYAxisBoundsManual(true);
+                graph.getViewport().setXAxisBoundsManual(true);*/
+               //graph.getViewport().setMaxX(xmax);
                 graph.getViewport().setScalable(true);
                 graph.getViewport().setScalableY(true);
 

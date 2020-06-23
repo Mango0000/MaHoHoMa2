@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
-import androidx.core.text.HtmlCompat;
 import androidx.fragment.app.Fragment;
 
 import android.text.method.LinkMovementMethod;
@@ -19,18 +18,14 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import at.htlkaindorf.mahohoma.R;
-import at.htlkaindorf.mahohoma.backgroundTasks.CommodityChart;
+import at.htlkaindorf.mahohoma.backgroundTasks.Chart;
 import at.htlkaindorf.mahohoma.backgroundTasks.CommodityInformations;
-import at.htlkaindorf.mahohoma.backgroundTasks.CompanyInformations;
-import at.htlkaindorf.mahohoma.backgroundTasks.IncomeStatement;
 import at.htlkaindorf.mahohoma.favourite.favourite;
-import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -113,12 +108,12 @@ public class commodity extends Fragment implements View.OnClickListener
                 + "Previous Close: " +previousClose+"\n"
                 + "Exchange: " +exchange+"\n");
         //tvDescription.setText("\n"+description);
-        //ivCommodity = root.findViewById(R.id.IVCommodityImage);
-        //Picasso.get().load(Image).transform(new RoundedCornersTransformation(40,0)).fit().centerInside().into(ivCompany);
+        ivCommodity = root.findViewById(R.id.IVCommodityImage);
+        ivCommodity.setImageResource(R.drawable.ic_commodity);
 
         graph = root.findViewById(R.id.graph);
         try {
-            DataPoint revenue[] = new CommodityChart().execute(Symbol).get();
+            DataPoint revenue[] = new Chart().execute(Symbol).get();
             if(revenue!=null){
                 Log.w("test",revenue.toString());
                 LineGraphSeries<DataPoint> series = new LineGraphSeries<>(revenue);

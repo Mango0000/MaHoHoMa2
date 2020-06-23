@@ -26,6 +26,15 @@
             app:showSeekBarValue="true"
             />
 
+        <SeekBarPreference
+            app:defaultValue="5"
+            app:key="chart"
+            app:title="Chart Count"
+            app:min="5"
+            android:max="100"
+            app:showSeekBarValue="true"
+            />
+
     </PreferenceCategory>
 
 

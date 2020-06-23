@@ -26,7 +26,7 @@ import java.util.List;
 
 import at.htlkaindorf.mahohoma.MainActivity;
 
-public class CompanyChart extends AsyncTask<String, String, DataPoint[]>
+public class Chart extends AsyncTask<String, String, DataPoint[]>
 {
     @Override
     protected DataPoint[] doInBackground(String... strings)
@@ -36,6 +36,7 @@ public class CompanyChart extends AsyncTask<String, String, DataPoint[]>
             URL url = null;
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.getContext());
             String apiKey = prefs.getString("apikey","");
+            int x = prefs.getInt("chart",5);
             url = new URL("https://financialmodelingprep.com/api/v3/historical-chart/1hour/"+strings[0]+"?apikey="+apiKey);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
@@ -44,7 +45,7 @@ public class CompanyChart extends AsyncTask<String, String, DataPoint[]>
             int limit=0;
             while((line = br.readLine())!=null){
                 limit++;
-                if(limit>=100){
+                if(limit>=x*7){
                     if(line.contains("}")){
                         result+="}]";
                         break;

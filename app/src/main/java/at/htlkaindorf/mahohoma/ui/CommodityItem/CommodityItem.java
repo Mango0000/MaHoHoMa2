@@ -56,7 +56,7 @@ public class CommodityItem extends Fragment implements View.OnClickListener
         // Inflate the layout for this fragment
         root = inflater.inflate(R.layout.fragment_commodity_item, container, false);
         iv = root.findViewById(R.id.ivImageComm);
-        //Picasso.get().load("https://financialmodelingprep.com/image-stock/AAPL.jpg").transform(new RoundedCornersTransformation(40,0)).fit().centerInside().into(iv);
+        iv.setImageResource(R.drawable.ic_commodity);
         name= root.findViewById(R.id.tvCommodityName);
         if(Name.length()>40){
             name.setText(Name.substring(0,40) +" ...");
