@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import at.htlkaindorf.mahohoma.R;
+import at.htlkaindorf.mahohoma.backgroundTasks.CompanyChart;
 import at.htlkaindorf.mahohoma.backgroundTasks.CompanyInformations;
 import at.htlkaindorf.mahohoma.backgroundTasks.CompanyResolver;
 import at.htlkaindorf.mahohoma.backgroundTasks.IncomeStatement;
@@ -124,13 +125,13 @@ public class stock extends Fragment implements View.OnClickListener {
         Picasso.get().load(Image).transform(new RoundedCornersTransformation(40,0)).fit().centerInside().into(ivCompany);
         graph = root.findViewById(R.id.graph);
         try {
-            DataPoint revenue[] = new IncomeStatement().execute(Symbol).get();
+            DataPoint revenue[] = new CompanyChart().execute(Symbol).get();
             if(revenue!=null){
                 Log.w("test",revenue.toString());
                 LineGraphSeries<DataPoint> series = new LineGraphSeries<>(revenue);
                 graph.addSeries(series);
                 graph.getGridLabelRenderer().setHorizontalAxisTitle("Date");
-                graph.getGridLabelRenderer().setVerticalAxisTitle("Revenue");
+                graph.getGridLabelRenderer().setVerticalAxisTitle("Price");
                 graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(this.getContext()));
                 graph.getGridLabelRenderer().setNumHorizontalLabels(2);
                 //graph.getViewport().setScrollable(true);
