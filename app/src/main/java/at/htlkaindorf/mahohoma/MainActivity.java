@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         getOnBackPressedDispatcher().addCallback(this, callback);
         mContext = getApplicationContext();
         PreferenceManager.setDefaultValues(this, R.xml.root_preferences, false);
+
     }
 
     @Override

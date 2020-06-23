@@ -6,6 +6,7 @@
     <string name="nav_header_subtitle">MaHoHoMa ©</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+    <string name="dark_theme">Dark Theme</string>
 
     <string name="menu_home">Home</string>
     <string name="menu_browse">Browse</string>

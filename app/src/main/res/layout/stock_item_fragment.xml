@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:paddingLeft="20dp"
             android:text="test"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/design_default_color_background"
             android:textSize="24sp" />
 
         <LinearLayout

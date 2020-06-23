@@ -36,6 +36,7 @@ public class favourite {
         try {
             ObjectInputStream ois = new ObjectInputStream(MainActivity.getContext().openFileInput(filename));
             favourites = (List<String>) ois.readObject();
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

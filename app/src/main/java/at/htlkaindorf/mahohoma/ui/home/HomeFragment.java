@@ -2,6 +2,9 @@ package at.htlkaindorf.mahohoma.ui.home;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,10 +17,12 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.preference.PreferenceManager;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import at.htlkaindorf.mahohoma.MainActivity;
 import at.htlkaindorf.mahohoma.R;
 import at.htlkaindorf.mahohoma.backgroundTasks.CommodityResolver;
 import at.htlkaindorf.mahohoma.backgroundTasks.CompanyResolver;
@@ -38,6 +43,14 @@ public class HomeFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         favourites = favourite.getTheInstance();
         llFavourites = root.findViewById(R.id.llFavourites);
+
+        /*SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.getContext());
+        Boolean darkmode = prefs.getBoolean("darkmode",false);
+        if(darkmode)
+        {
+            root.setBackgroundColor(Color.GRAY);
+            //root.setBackground(gd);
+        }*/
         return root;
     }
 
