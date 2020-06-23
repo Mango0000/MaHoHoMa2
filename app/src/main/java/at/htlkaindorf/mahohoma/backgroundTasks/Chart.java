@@ -18,11 +18,14 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.format.ResolverStyle;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import at.htlkaindorf.mahohoma.MainActivity;
 
@@ -61,7 +64,8 @@ public class Chart extends AsyncTask<String, String, DataPoint[]>
             String dateStr;
             for (int i = 0; i<obj.length(); i++) {
                 dateStr = obj.getJSONObject(i).getString("date");
-                SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd HH");
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                sdf.setLenient(false);
                 Date birthDate = sdf.parse(dateStr);
                 list.add(new DataPoint(birthDate.getTime(), obj.getJSONObject(i).getInt("open")));
             }
@@ -69,10 +73,13 @@ public class Chart extends AsyncTask<String, String, DataPoint[]>
             JSONObject profile = obj.getJSONObject("profile");*/
            // }
             DataPoint[] dpsArray = new DataPoint[list.size()];
-            Collections.sort(list, (d1, d2) -> {
-                if (d1.getX() < d2.getX()) return -1;
-                if (d1.getX() > d2.getX()) return 1;
-                return 0;
+            Collections.sort(list, new Comparator<DataPoint>() {
+                @Override
+                public int compare(DataPoint o1, DataPoint o2) {
+                    if (o1.getX() < o2.getX()) return -1;
+                    if (o1.getX() > o2.getX()) return 1;
+                    return 0;
+                }
             });
             list.toArray(dpsArray);
             return dpsArray;

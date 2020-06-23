@@ -126,10 +126,10 @@ public class stock extends Fragment implements View.OnClickListener {
                 graph.addSeries(series);
                 graph.getGridLabelRenderer().setHorizontalAxisTitle("Date");
                 graph.getGridLabelRenderer().setVerticalAxisTitle("Price");
-                graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(this.getContext(), new SimpleDateFormat("YYYY.MM.dd. HH")));
+                graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(this.getContext(), new SimpleDateFormat("yyyy.MM.dd. HH")));
                 graph.getGridLabelRenderer().setNumHorizontalLabels(2);
                 //graph.getViewport().setScrollable(true);
-               /* double xmin=revenue[0].getX(), xmax=revenue[0].getX(), ymin=revenue[0].getY(), ymax=revenue[0].getY();
+                double xmin=revenue[0].getX(), xmax=revenue[0].getX(), ymin=revenue[0].getY(), ymax=revenue[0].getY();
                 for(DataPoint dp: revenue){
                     if(dp.getX()>xmax){
                         xmax=dp.getX();
@@ -145,19 +145,15 @@ public class stock extends Fragment implements View.OnClickListener {
                     }
                 }
                 //graph.getViewport().setXAxisBoundsManual(true);
-                graph.getGridLabelRenderer().setHumanRounding(false);
-                /*graph.getViewport().setMinX(xmin);
+                //graph.getGridLabelRenderer().setHumanRounding(false);
+                graph.getViewport().setMinX(xmin);
                 graph.getViewport().setMaxX(xmax);
                 graph.getViewport().setMinY(ymin);
-                graph.getViewport().setMaxY(ymax);*/
-                /*graph.getViewport().setYAxisBoundsManual(true);
-                graph.getViewport().setXAxisBoundsManual(true);*/
-               //graph.getViewport().setMaxX(xmax);
+                graph.getViewport().setMaxY(ymax);
                 graph.getViewport().setScalable(true);
-                graph.getViewport().setScalableY(true);
-
-                //graph.getViewport().setYAxisBoundsManual(true);
-                //graph.getViewport().setXAxisBoundsManual(true);
+                graph.getViewport().setScalableY(false);
+                graph.getViewport().setYAxisBoundsManual(true);
+                graph.getViewport().setXAxisBoundsManual(true);
             }
         }catch (Exception e){
             TextView tv = new TextView(this.getContext());

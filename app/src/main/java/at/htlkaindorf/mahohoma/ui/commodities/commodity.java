@@ -19,6 +19,7 @@ import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -120,7 +121,7 @@ public class commodity extends Fragment implements View.OnClickListener
                 graph.addSeries(series);
                 graph.getGridLabelRenderer().setHorizontalAxisTitle("Date");
                 graph.getGridLabelRenderer().setVerticalAxisTitle("Price");
-                graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(this.getContext()));
+                graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(this.getContext(), new SimpleDateFormat("yyyy.MM.dd. HH")));
                 graph.getGridLabelRenderer().setNumHorizontalLabels(2);
                 //graph.getViewport().setScrollable(true);
                 double xmin=revenue[0].getX(), xmax=revenue[0].getX(), ymin=revenue[0].getY(), ymax=revenue[0].getY();
@@ -139,15 +140,15 @@ public class commodity extends Fragment implements View.OnClickListener
                     }
                 }
 
-                // graph.getViewport().setMinX(xmin);
-                //graph.getViewport().setMaxX(xmax);
-                //graph.getViewport().setMinY(ymin);
-                // graph.getViewport().setMaxY(ymax);
+                graph.getViewport().setMinX(xmin);
+                graph.getViewport().setMaxX(xmax);
+                graph.getViewport().setMinY(ymin);
+                graph.getViewport().setMaxY(ymax);
                 graph.getViewport().setScalable(true);
-                graph.getViewport().setScalableY(true);
+                graph.getViewport().setScalableY(false);
 
-                //graph.getViewport().setYAxisBoundsManual(true);
-                //graph.getViewport().setXAxisBoundsManual(true);
+                graph.getViewport().setYAxisBoundsManual(true);
+                graph.getViewport().setXAxisBoundsManual(true);
             }
         }catch (Exception e){
             TextView tv = new TextView(this.getContext());
