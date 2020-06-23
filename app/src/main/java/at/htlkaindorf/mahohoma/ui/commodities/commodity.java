@@ -8,6 +8,7 @@ import androidx.core.text.HtmlCompat;
 import androidx.fragment.app.Fragment;
 
 import android.text.method.LinkMovementMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.squareup.picasso.Picasso;
@@ -23,8 +25,10 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import at.htlkaindorf.mahohoma.R;
+import at.htlkaindorf.mahohoma.backgroundTasks.CommodityChart;
 import at.htlkaindorf.mahohoma.backgroundTasks.CommodityInformations;
 import at.htlkaindorf.mahohoma.backgroundTasks.CompanyInformations;
+import at.htlkaindorf.mahohoma.backgroundTasks.IncomeStatement;
 import at.htlkaindorf.mahohoma.favourite.favourite;
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
@@ -45,6 +49,7 @@ public class commodity extends Fragment implements View.OnClickListener
     private TextView name, tvDescription, tvInformations;
     private ImageView ivCommodity, ivFavourite;
     private favourite favourites;
+    private GraphView graph;
 
 
     private String mParam1;
@@ -110,7 +115,59 @@ public class commodity extends Fragment implements View.OnClickListener
         //tvDescription.setText("\n"+description);
         //ivCommodity = root.findViewById(R.id.IVCommodityImage);
         //Picasso.get().load(Image).transform(new RoundedCornersTransformation(40,0)).fit().centerInside().into(ivCompany);
+
+        graph = root.findViewById(R.id.graph);
+        try {
+            DataPoint revenue[] = new CommodityChart().execute(Symbol).get();
+            if(revenue!=null){
+                Log.w("test",revenue.toString());
+                LineGraphSeries<DataPoint> series = new LineGraphSeries<>(revenue);
+                graph.addSeries(series);
+                graph.getGridLabelRenderer().setHorizontalAxisTitle("Date");
+                graph.getGridLabelRenderer().setVerticalAxisTitle("Price");
+                graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(this.getContext()));
+                graph.getGridLabelRenderer().setNumHorizontalLabels(2);
+                //graph.getViewport().setScrollable(true);
+                double xmin=revenue[0].getX(), xmax=revenue[0].getX(), ymin=revenue[0].getY(), ymax=revenue[0].getY();
+                for(DataPoint dp: revenue){
+                    if(dp.getX()>xmax){
+                        xmax=dp.getX();
+                    }
+                    if(dp.getX()<xmin){
+                        xmin=dp.getX();
+                    }
+                    if(dp.getY()>ymax){
+                        ymax=dp.getY();
+                    }
+                    if(dp.getY()<ymin){
+                        ymin=dp.getY();
+                    }
+                }
+
+                // graph.getViewport().setMinX(xmin);
+                //graph.getViewport().setMaxX(xmax);
+                //graph.getViewport().setMinY(ymin);
+                // graph.getViewport().setMaxY(ymax);
+                graph.getViewport().setScalable(true);
+                graph.getViewport().setScalableY(true);
+
+                //graph.getViewport().setYAxisBoundsManual(true);
+                //graph.getViewport().setXAxisBoundsManual(true);
+            }
+        }catch (Exception e){
+            TextView tv = new TextView(this.getContext());
+            tv.setText("No Price");
+            replaceView(graph, tv);
+        }
         return root;
+    }
+
+    private void replaceView(View oldV,View newV){
+        ViewGroup par = (ViewGroup)oldV.getParent();
+        if(par == null){return;}
+        int i1 = par.indexOfChild(oldV);
+        par.removeViewAt(i1);
+        par.addView(newV,i1);
     }
 
     public void getCommodityInformations()
